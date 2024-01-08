@@ -8,7 +8,7 @@ struct node* left;
 struct node* right;
 };
 
-// Inorder traversal
+
 void inorderTraversal(struct node* root)
 {
 if (root == NULL) return;
@@ -17,7 +17,7 @@ printf("%d ", root->item);
 inorderTraversal(root->right);
 }
 
-// Preorder traversal
+
 void preorderTraversal(struct node* root)
 {
 if (root == NULL) return;
@@ -26,7 +26,7 @@ preorderTraversal(root->left);
 preorderTraversal(root->right);
 }
 
-// Postorder traversal
+
 void postorderTraversal(struct node* root)
 {
 if (root == NULL) return;
@@ -35,7 +35,6 @@ postorderTraversal(root->right);
 printf("%d ", root->item);
 }
 
-// Create a new Node
 struct node* create(int value)
 {
 struct node* newNode = malloc(sizeof(struct node));
@@ -46,14 +45,14 @@ newNode->right = NULL;
 return newNode;
 }
 
-// Insert on the left of the node
+
 struct node* insertLeft(struct node* root, int value)
 {
 root->left = create(value);
 return root->left;
 }
 
-// Insert on the right of the node
+
 struct node* insertRight(struct node* root, int value)
 {
 root->right = create(value);

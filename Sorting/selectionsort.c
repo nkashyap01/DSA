@@ -10,27 +10,22 @@ int main()
         scanf("%d",&a[i]);
 
     }
-    for(i=0;i<=n-2;i++)
+    for(i=1;i<=n-1;i++)
     {
-        min=a[i];
-        for(j=i+1;j<=n-1;j++)
+        for(j=i;a[j-1]>a[j]&&j!=0;j--)
         {
-            if(min>a[j])
-            {
-                min=a[j];
-                index=j;
-            }
+            t=a[j];
+            a[j]=a[j-1];
+            a[j-1]=t;
+
         }
-        if(a[i]>min)
-        {
-            t=a[i];
-            a[i]=a[index];
-            a[index]=t;
-        }
+    }
+
+
+     
         printf("The number after sorting is:\n");
         for(i=0;i<=n-1;i++)
         {
             printf("\n %d",a[i]);
         }
     }
-}

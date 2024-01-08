@@ -1,132 +1,76 @@
 #include<stdio.h>
 #include<stdlib.h>
-void insert(int);
+
 struct node
 {
-int data;
-struct node *left;
-struct node *right;
+    int key;
+    struct node *left;
+    struct node *right;
 };
-struct node *root;
-void main ()
+
+//this function will return the new node with the given value
+struct node *getNewNode(int val)
 {
-int choice,item;
-do
-{
-printf("\nEnter the item which you want to insert?\n");
-scanf("%d",&item);
-insert(item);
-printf("\nPress 0 to insert more ?\n");
-scanf("%d",&choice);
-}while(choice == 0);
-}
-void insert(int item)
-{
-struct node *ptr, *parentptr , *nodeptr;
-ptr = (struct node *) malloc(sizeof (struct node));
-if(ptr == NULL)
-{
-printf("can't insert");
-}
-else
-{
-ptr -> data = item;
-ptr -> left = NULL;
-ptr -> right = NULL;
-if(root == NULL)
-{
-root = ptr;
-root -> left = NULL;
-root -> right = NULL;
-}
-else
-{
-parentptr = NULL;
-nodeptr = root;
-while(nodeptr != NULL)
-{
-parentptr = nodeptr;
-if(item < nodeptr->data)
-{
-nodeptr = nodeptr -> left;
-}
-else
-{
-nodeptr = nodeptr -> right;
-}
-}
-if(item < parentptr -> data)
-{
-parentptr -> left = ptr;
-}
-else
-{
-parentptr -> right = ptr;
-}
-}
-printf("Node Inserted");
-}
+    struct node *newNode = malloc(sizeof(struct node));
+    newNode->key   = val;
+    newNode->left  = NULL;
+    newNode->right = NULL;
+
+    return newNode;
 }
 
-10:53 AM
-emoji-icon
-three-dots-icon
-void deletion(Node*& root, int item)
+struct node *insert(struct node *root, int val)
 {
-Node* parent = NULL;
-Node* cur = root;
-
-search(cur, item, parent);
-if (cur == NULL)
-return;
-
-if (cur->left == NULL && cur->right == NULL)
-{
-if (cur != root)
-{
-if (parent->left == cur)
-parent->left = NULL;
-else
-parent->right = NULL;
-}
-else
-root = NULL;
-
-free(cur);
-}
-else if (cur->left && cur->right)
-{
-Node* succ = findMinimum(cur- >right);
-
-int val = succ->data;
-
-deletion(root, succ->data);
-
-cur->data = val;
+    /*
+     * It will handle two cases,
+     * 1. if the tree is empty, return new node in root
+     * 2. if the tree traversal reaches NULL, it will return the new node
+     */
+    if(root == NULL)
+        return getNewNode(val);
+    /*
+     * if given val is greater than root->key,
+     * we should find the correct place in right subtree and insert the new node
+     */
+    if(root->key < val)
+        root->right = insert(root->right,val);
+    /*
+     * if given val is smallar than root->key,
+     * we should find the correct place in left subtree and insert the new node
+     */
+    else if(root->key > val)
+        root->left = insert(root->left,val);
+    /*
+     * It will handle two cases
+     * (Prevent the duplicate nodes in the tree)
+     * 1.if root->key == val it will straight away return the address of the root node
+     * 2.After the insertion, it will return the original unchanged root's address
+     */
+    return root;
 }
 
-else
+/*
+ * it will print the tree in ascending order
+ * we will discuss about it in the upcoming tutorials
+ */
+void inorder(struct node *root)
 {
-Node* child = (cur->left)? Cur- >left: cur->right;
-
-if (cur != root)
-{
-if (cur == parent->left)
-parent->left = child;
-else
-parent->right = child;
-}
-
-else
-root = child;
-free(cur);
-}
+    if(root == NULL)
+        return;
+    inorder(root->left);
+    printf("%d ",root->key);
+    inorder(root->right);
 }
 
-Node* findMinimum(Node* cur)
+int main()
 {
-while(cur->left != NULL) {
-cur = cur->left;
-}
-return cur;
+    struct node *root = NULL;
+    root = insert(root,100);
+    root = insert(root,50);
+    root = insert(root,150);
+    root = insert(root,70);
+
+    inorder(root);
+
+    return 0;
 }

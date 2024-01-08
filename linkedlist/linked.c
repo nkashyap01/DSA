@@ -14,7 +14,7 @@
     start=NULL;
     printf("How many nodes");
     scanf("%d",&n);
-    for(i=1;i<=n;i++)
+    for(i=0;i<n;i++)
     {
       cur=(struct node *)malloc(sizeof(struct node));
       printf("Enter the number");
@@ -24,12 +24,29 @@
 
 
     }
+  int p=0;
     cur=start;
     while(cur!=NULL)
     {
-      printf("%d",cur->data);
-      cur=cur->next;
+      int c=0;
+       printf("%d",cur->data);
+       for(i=1;i<=cur->data;i++)
+       {
+        if((cur->data)%i==0)
+        {
+          c++;
+          
+        }
+       }
+       cur=cur->next;
+       if(c==2)
+          {
+            p++;
           }
+       
+          }
+          
+          printf("Total prime number is %d",p);
  
  
     
