@@ -28,7 +28,7 @@ int findMinElement(int arr[][3], int row, int col) {
 }
 
 
-int main()
+int main() 
 {
     int arr[][3] = {{1,2,3},{10,13,20},{90,40,50}};
     int row=3, col=3;
