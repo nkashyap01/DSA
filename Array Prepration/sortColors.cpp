@@ -33,6 +33,7 @@ public:
             } else if (nums[i] == 2) {
                 swap(nums[i], nums[right]);
                 right--;
+                // here we are not writing i++ because if last element will be 2 then it will give wrong output.
             } else {
                 i++;
             }
